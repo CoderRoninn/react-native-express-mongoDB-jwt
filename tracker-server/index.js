@@ -1,8 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const authRoutes = require('./src/routes/authRoutes');
 
 // Create an express application instance
 const app = express();
+
+app.use(authRoutes);
 
 // MongoDB connection string with credentials
 const mongoUri = 'mongodb+srv://admin:emir2121@cluster0.jjbixd4.mongodb.net/tracker';
@@ -21,8 +24,8 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Main route that returns a simple message
-app.get('/', (req, res) => {
-  res.send('Hi there!');
+app.get('/', (request, response) => {
+  response.send('Hi there!');
 });
 
 // Start the server and listen on port 3000
