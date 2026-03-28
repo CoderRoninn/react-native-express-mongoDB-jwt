@@ -1,5 +1,14 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import { ROUTES } from '../constants/routes.js';
+
+/**
+ * Auth Routes
+ * Handles user authentication related requests (signup, signin)
+ */
+
+// Get the User model
+const User = mongoose.model('User');
 
 // Create a new router instance for grouping routes
 const router = express.Router();
