@@ -1,14 +1,16 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const authRoutes = require('./src/routes/authRoutes');
+import express from 'express';
+import mongoose from 'mongoose';
+import authRoutes from './src/routes/authRoutes.js';
 
 // Create an express application instance
 const app = express();
-
+// 
+// This activates the imported routes
 app.use(authRoutes);
 
-// MongoDB connection string with credentials
-const mongoUri = 'mongodb+srv://admin:emir2121@cluster0.jjbixd4.mongodb.net/tracker';
+
+// Get MongoDB connection string from environment variable
+const mongoUri = process.env.EXPO_PUBLIC_MONGO_URI;
 
 // Connect to the MongoDB database
 mongoose.connect(mongoUri);
