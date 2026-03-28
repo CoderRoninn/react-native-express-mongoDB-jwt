@@ -1,6 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import './src/models/User.js';
 import authRoutes from './src/routes/authRoutes.js';
+
+/**
+ * Main Application Entry Point
+ * Configures Express, Mongoose, and registers routes/models
+ */
 
 // Create an express application instance
 const app = express();
