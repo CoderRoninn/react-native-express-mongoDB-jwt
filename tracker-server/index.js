@@ -4,7 +4,9 @@ import authRoutes from './src/routes/authRoutes.js';
 
 // Create an express application instance
 const app = express();
-// 
+
+// Parses incoming JSON requests
+app.use(express.json());
 // This activates the imported routes
 app.use(authRoutes);
 
