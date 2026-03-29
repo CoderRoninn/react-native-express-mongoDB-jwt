@@ -19,3 +19,12 @@ The `app.use(express.json());` code in our server looks for **this header inform
 ---
 
 **Summary:** If you send a package, you must put the label on it (`Content-Type: application/json`)! 🚀
+
+---
+
+### 3. Automatic Restarts (Nodemon)
+To run the server and automatically detect your code changes, use this command:
+*   `npm run dev`
+
+(This uses **nodemon**, so you don't have to manually stop and start the server every time you save a file.)
+
