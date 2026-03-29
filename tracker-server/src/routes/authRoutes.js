@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import { ROUTES } from '../constants/routes.js';
+
 
 /**
  * Auth Routes
@@ -21,11 +23,14 @@ router.post(ROUTES.SIGNUP, async (request, response) => {
         const user = new User({ email, password }); // Create a new record of a User
         await user.save(); // Try to save the record to our database 
 
-    } catch (error) {
-        return response.status(422).send(error.message); // status code 422 means unprocessable entity (The user is already signed up)
+        // create a jwt token
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        response.send({ token });
 
+    } catch (error) {
+        return response.status(422).send(error.message);
     }
-    response.send('You made a post request');
 });
+
 
 export default router;
