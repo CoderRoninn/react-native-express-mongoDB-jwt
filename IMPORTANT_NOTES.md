@@ -1,30 +1,34 @@
-# 🚨 IMPORTANT NOTES: JSON & HEADERS RELATIONSHIP
+# IMPORTANT NOTES: JSON AND HEADERS RELATIONSHIP
 
-To process data (signup, login, etc.) correctly in this project, you **MUST FOLLOW THIS RULE**:
+To ensure signup and login work correctly, follow these rules:
 
-### 1. Adding Headers for JSON (MANDATORY!)
-When sending **JSON** data to the server via Postman or any frontend tool (React Native, Fetch, Axios, etc.), you MUST include this **Header**:
+1. Adding Headers for JSON and Why it is Mandatory
+When sending JSON data through Postman or any frontend tool like React Native, Fetch, or Axios, include this Header:
+Key: Content-Type
+Value: application/json
 
-*   **Key:** `Content-Type`
-*   **Value:** `application/json`
-
-### 2. Why is it Mandatory?
-The `app.use(express.json());` code in our server looks for **this header information** to recognize the incoming data as a JSON object and place it inside `request.body`.
-
-**If you don't add this header:**
-*   The server will not recognize the incoming data.
-*   `request.body` will be **empty (undefined)**.
-*   Actions like signing up or logging in will **FAIL** because the data cannot be read.
+The express.json code in the server identifies the incoming data using this header and places it inside request.body. If this header is missing, request.body will remain empty and the action will fail.
 
 ---
 
-**Summary:** If you send a package, you must put the label on it (`Content-Type: application/json`)! 🚀
+2. Automatic Restarts Nodemon
+To automatically detect code changes, use this command:
+npm run dev
+
+This uses nodemon, so you do not need to manually restart the server every time.
 
 ---
 
-### 3. Automatic Restarts (Nodemon)
-To run the server and automatically detect your code changes, use this command:
-*   `npm run dev`
+3. Authorization Header and Bearer Token 
+To access protected data, add these to the Postman Headers:
+Key: Authorization
+Value: Bearer YOUR_TOKEN_HERE
 
-(This uses **nodemon**, so you don't have to manually stop and start the server every time you save a file.)
+Why do we use this?
+Authorization is the envelope for the ticket. The Middleware looks exactly here.
+The Bearer keyword indicates the ticket is a valid token. The code removes this word to extract and verify the actual token string.
+
+Summary: Authorization is the slot, Bearer is the ticket label!
+
+---
 

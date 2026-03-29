@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import './src/models/User.js';
 import authRoutes from './src/routes/authRoutes.js';
+import requireAuth from './src/middlewares/requireAuth.js';
 
 /**
  * Main Application Entry Point
@@ -33,10 +34,11 @@ mongoose.connection.on('error', (err) => {
   console.error('Error connecting to mongo', err);
 });
 
-// Main route that returns a simple message
-app.get('/', (request, response) => {
-  response.send('Hi there!');
+// Main route 
+app.get('/', requireAuth, (request, response) => {
+  response.send(`Hi there! Your email is: ${request.user.email}`);
 });
+
 
 // Start the server and listen on port 3000
 app.listen(3000, () => {
