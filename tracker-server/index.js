@@ -1,11 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import './src/models/User.js';
+import authRoutes from './src/routes/authRoutes.js';
+
+/**
+ * Main Application Entry Point
+ * Configures Express, Mongoose, and registers routes/models
+ */
 
 // Create an express application instance
 const app = express();
 
-// MongoDB connection string with credentials
-const mongoUri = 'mongodb+srv://admin:emir2121@cluster0.jjbixd4.mongodb.net/tracker';
+// Parses incoming JSON requests
+app.use(express.json());
+// This activates the imported routes
+app.use(authRoutes);
+
+
+// Get MongoDB connection string from environment variable
+const mongoUri = process.env.EXPO_PUBLIC_MONGO_URI;
 
 // Connect to the MongoDB database
 mongoose.connect(mongoUri);
@@ -21,8 +34,8 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Main route that returns a simple message
-app.get('/', (req, res) => {
-  res.send('Hi there!');
+app.get('/', (request, response) => {
+  response.send('Hi there!');
 });
 
 // Start the server and listen on port 3000
