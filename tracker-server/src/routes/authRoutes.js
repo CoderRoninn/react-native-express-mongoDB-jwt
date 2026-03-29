@@ -14,7 +14,17 @@ const User = mongoose.model('User');
 const router = express.Router();
 
 // Define a POST route for user signup
-router.post(ROUTES.SIGNUP, (request, response) => {
+router.post(ROUTES.SIGNUP, async (request, response) => {
+    const { email, password } = request.body; // Pull email and password out of the request body
+
+    try {
+        const user = new User({ email, password }); // Create a new record of a User
+        await user.save(); // Try to save the record to our database 
+
+    } catch (error) {
+        return response.status(422).send(error.message); // status code 422 means unprocessable entity (The user is already signed up)
+
+    }
     response.send('You made a post request');
 });
 
